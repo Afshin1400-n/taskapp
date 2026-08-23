@@ -1,7 +1,14 @@
-// src/app/page.tsx
+"use client"
+
 import Link from 'next/link';
 
+
+
 export default function Home() {
+
+
+
+
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
       <div className="text-center">
