@@ -1,48 +1,27 @@
 "use client"
 import { useState } from 'react';
-import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useAuthStore } from '../store/authStore';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login, isLoading } = useAuthStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
 
-    try {
-      // ۱. گرفتن همه کاربران
-      const res = await axios.get('http://localhost:4000/users');
-      const users = res.data;
+    const result = await login(email, password);
 
-      // ۲. پیدا کردن کاربر با ایمیل
-      const user = users.find((u: any) => u.email === email);
 
-      if (!user) {
-        setError('❌ همچین کاربری یافت نشد');
-        setLoading(false);
-        return;
-      }
-
-      // ۳. چک کردن رمز
-      if (user.password !== password) {
-        setError('❌ رمز عبور اشتباه است');
-        setLoading(false);
-        return;
-      }
-
-      // ۴. موفقیت - رفتن به داشبورد
-      router.push('/main');
-
-    } catch (err) {
-      setError('❌ خطا در ارتباط با سرور');
-      setLoading(false);
+    if (result.success) {
+      router.push('/dashboard');
+    } else {
+      setError(result.message);
     }
   };
 
@@ -54,7 +33,6 @@ export default function LoginPage() {
           <p className="text-gray-500 dark:text-gray-400 mt-2">وارد حساب کاربری خود شوید</p>
         </div>
 
-        {/* نمایش خطا */}
         {error && (
           <div className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-lg text-sm">
             {error}
@@ -92,10 +70,10 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={isLoading}
             className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold rounded-lg transition duration-200"
           >
-            {loading ? 'در حال بررسی...' : 'ورود'}
+            {isLoading ? 'در حال بررسی...' : 'ورود'}
           </button>
         </form>
 
