@@ -1,12 +1,14 @@
 "use client"
 
 import Link from 'next/link';
-
+import { useAuthStore } from './store/authStore';
 
 
 export default function Home() {
 
+  const { login, isLoading } = useAuthStore();
 
+  
 
 
   return (
