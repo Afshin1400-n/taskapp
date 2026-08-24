@@ -17,44 +17,44 @@ export default function RegisterPage() {
     e.preventDefault();
     setError('');
 
-    // چک کردن رمز
+    // Check passwords match
     if (password !== confirmPassword) {
-      setError('❌ رمز عبور و تکرار آن مطابقت ندارند');
+      setError('Passwords do not match');
       return;
     }
 
     setLoading(true);
 
     try {
-      // ۱. گرفتن همه کاربران (برای چک کردن تکراری نبودن ایمیل)
+      // 1. Get all users to check for duplicate email
       const res = await axios.get('http://localhost:4000/users');
       const users = res.data;
 
-      // ۲. چک کردن تکراری نبودن ایمیل
+      // 2. Check if email already exists
       const existingUser = users.find((u: any) => u.email === email);
       if (existingUser) {
-        setError('❌ این ایمیل قبلاً ثبت شده است');
+        setError('This email is already registered');
         setLoading(false);
         return;
       }
 
-      // ۳. ایجاد کاربر جدید
+      // 3. Create new user
       const newUser = {
-        id: Date.now().toString(), // تولید ID یکتا
+        id: Date.now().toString(),
         name,
         email,
         password,
         avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`
       };
 
-      // ۴. ارسال به JSON Server
+      // 4. Send to JSON Server
       await axios.post('http://localhost:4000/users', newUser);
 
-      // ۵. موفقیت - رفتن به صفحه ورود
+      // 5. Success - redirect to login
       router.push('/login');
 
     } catch (err) {
-      setError('❌ خطا در ارتباط با سرور');
+      setError('Server connection error');
       setLoading(false);
     }
   };
@@ -63,8 +63,8 @@ export default function RegisterPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">ایجاد حساب</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-2">ثبت‌نام در TaskFlow</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Create Account</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-2">Register for TaskFlow</p>
         </div>
 
         {error && (
@@ -76,13 +76,13 @@ export default function RegisterPage() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              نام کامل
+              Full Name
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="علی محمدی"
+              placeholder="John Doe"
               className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
               required
             />
@@ -90,7 +90,7 @@ export default function RegisterPage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              ایمیل
+              Email
             </label>
             <input
               type="email"
@@ -104,7 +104,7 @@ export default function RegisterPage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              رمز عبور
+              Password
             </label>
             <input
               type="password"
@@ -118,7 +118,7 @@ export default function RegisterPage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              تکرار رمز عبور
+              Confirm Password
             </label>
             <input
               type="password"
@@ -135,17 +135,17 @@ export default function RegisterPage() {
             disabled={loading}
             className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold rounded-lg transition duration-200"
           >
-            {loading ? 'در حال ثبت‌نام...' : 'ثبت‌نام'}
+            {loading ? 'Registering...' : 'Register'}
           </button>
         </form>
 
         <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
-          قبلاً ثبت‌نام کردید؟{' '}
+          Already have an account?{' '}
           <Link
             href="/login"
             className="text-blue-600 hover:text-blue-700 font-medium"
           >
-            ورود
+            Login
           </Link>
         </p>
       </div>
