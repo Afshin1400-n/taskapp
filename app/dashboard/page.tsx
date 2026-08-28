@@ -168,7 +168,7 @@ export default function DashboardPage() {
               {recentProjects.map((project) => (
                 <Link
                   key={project.id}
-                  href={`/projects/${project.id}`}
+                  href={`/products/${project.id}`}
                   className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition group"
                 >
                   <div className="flex items-center gap-3 min-w-0 flex-1">
