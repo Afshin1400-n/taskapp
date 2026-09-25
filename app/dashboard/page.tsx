@@ -28,31 +28,25 @@ export default function DashboardPage() {
     if (!user) return;
 
     try {
-      // ۱. گرفتن همه پروژه‌ها
       const projectsRes = await axios.get('http://localhost:4000/projects');
       const allProjects = projectsRes.data;
 
-      // ۲. فیلتر پروژه‌های کاربر
       const userProjects = allProjects.filter(
         (p: any) => p.ownerId === user.id || p.members?.includes(user.id)
       );
 
-      // ۳. مرتب‌سازی بر اساس تاریخ (جدیدترین اول)
       const sorted = [...userProjects].sort(
         (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
       setRecentProjects(sorted);
 
-      // ۴. گرفتن همه تسک‌ها
       const tasksRes = await axios.get('http://localhost:4000/tasks');
       const allTasks = tasksRes.data;
 
-      // ۵. فیلتر تسک‌های کاربر
       const userTasks = allTasks.filter(
         (t: any) => t.assigneeId === user.id || t.creatorId === user.id
       );
 
-      // ۶. تسک‌های انجام شده
       const completedTasks = userTasks.filter((t: any) => t.status === 'DONE');
 
       setStats({
