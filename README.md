@@ -1,60 +1,71 @@
-# 🚀 TaskFlow - Project Management Platform
+# ✅ TaskApp
 
-![Next.js](https://img.shields.io/badge/Next.js-14-black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38BDF8)
-![Zustand](https://img.shields.io/badge/Zustand-4.0-brown)
-![License](https://img.shields.io/badge/License-MIT-green)
+A modern project & task management app built with **Next.js 16**, **TypeScript**, **Tailwind CSS**, and **Zustand**.  
+Manage projects, assign tasks to team members, and track progress — all with a clean, dark-mode-ready UI.
 
-A modern project management platform built with **Next.js 14**, **TypeScript**, and **Zustand** for state management.
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?logo=tailwindcss)
+![Zustand](https://img.shields.io/badge/Zustand-State-orange)
+![json-server](https://img.shields.io/badge/json--server-Mock%20API-purple)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+---
 
 ## ✨ Features
 
-- 🔐 **Authentication** - Login & Register with validation
-- 📁 **Project Management** - Create, update, and delete projects
-- ✅ **Task Management** - Create, assign, and track tasks
-- 🎯 **Drag & Drop** - Intuitive task board with drag-and-drop
-- 🎨 **Modern UI** - Built with Shadcn/ui and Tailwind CSS
-- 🌓 **Dark/Light Mode** - Seamless theme switching
-- 📱 **Responsive** - Works on all devices
-- 🗄️ **Mock API** - JSON Server for development
+- 🔐 **Authentication** — Register & login with persistent sessions (Zustand + localStorage)
+- 📁 **Projects** — Create, edit, and delete projects with color tags
+- 👥 **Team Members** — Add multiple members to each project
+- ✅ **Tasks** — Full CRUD for tasks with:
+  - Title & description
+  - Status (`TODO`, `IN_PROGRESS`, `DONE`)
+  - Priority (`LOW`, `MEDIUM`, `HIGH`, `URGENT`)
+  - Due date
+  - Assignee
+- 🎨 **Modern UI** — Clean design with Tailwind CSS v4
+- 🌗 **Dark Mode Ready** — All components support `dark:` classes
+- ⚡ **Fast State Management** — Zustand for global state
+- 🗂️ **Mock Backend** — Powered by `json-server` with `db.json`
+
+---
 
 ## 🛠️ Tech Stack
 
 | Technology | Purpose |
 |------------|---------|
-| [Next.js 14](https://nextjs.org/) | React framework with App Router |
-| [TypeScript](https://www.typescriptlang.org/) | Type-safe JavaScript |
-| [Zustand](https://zustand-demo.pmnd.rs/) | State management |
-| [Shadcn/ui](https://ui.shadcn.com/) | UI component library |
-| [Tailwind CSS](https://tailwindcss.com/) | Utility-first CSS |
-| [Axios](https://axios-http.com/) | HTTP client |
-| [JSON Server](https://github.com/typicode/json-server) | Mock REST API |
+| **Next.js 16** | React framework (App Router) |
+| **TypeScript** | Type safety |
+| **Tailwind CSS 4** | Styling |
+| **Zustand** | Global state (auth, theme) |
+| **axios** | HTTP requests |
+| **react-hook-form + zod** | Form handling & validation |
+| **react-hot-toast** | Toast notifications |
+| **json-server** | Mock REST API |
 
-## 🚀 Getting Started
+---
+
+## 📦 Installation
 
 ### Prerequisites
 
-- Node.js 18+
-- npm or yarn
+- Node.js **18+**
+- npm / yarn / pnpm
 
-### Installation
+### Steps
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/taskflow.git
+# 1. Clone the repository
+git clone https://github.com/YOUR_USERNAME/taskapp.git
 
-# Navigate to the project
-cd taskflow
+# 2. Navigate into the project
+cd taskapp
 
-# Install dependencies
+# 3. Install dependencies
 npm install
 
-# Set up environment variables
-cp .env.example .env.local
+# 4. Run the mock server (terminal 1)
+npm run server
 
-# Start JSON Server (mock API)
-npm run json-server
-
-# In another terminal, start the development server
+# 5. Run the dev server (terminal 2)
 npm run dev
